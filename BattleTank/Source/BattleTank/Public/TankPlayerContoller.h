@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Tank.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerContoller.generated.h"
@@ -14,4 +15,12 @@ class BATTLETANK_API ATankPlayerContoller : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	ATank* GetControlledTank() const;
+
+	virtual void BeginPlay() override;
+
+private:
+
+
 };
