@@ -1,9 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Engine/World.h"
 #include "TankPlayerContoller.h"
+#include "Engine/World.h"
 #include "Math/Vector2D.h"
-
 
 ATank* ATankPlayerContoller::GetControlledTank() const
 {
@@ -45,7 +44,7 @@ void ATankPlayerContoller::AimTowardCrosshair()
     // Get World Location through Crosshair
     if( GetSightRayHitLocation( HitLocation ) )
     {
-        UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
+        GetControlledTank()->AimAt(HitLocation);
     }
 
     return;
