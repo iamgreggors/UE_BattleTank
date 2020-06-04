@@ -5,8 +5,6 @@
 
 void UTankBarrel::Elevate(float RelativeSpeed)
 {
-    //auto Time = GetWorld()->GetTimeSeconds();
-
     float MaxRelativeSpeed = 1.f;
     float ClampedRelativeSpeed = FMath::Clamp(RelativeSpeed, -MaxRelativeSpeed, MaxRelativeSpeed);
 
@@ -15,7 +13,6 @@ void UTankBarrel::Elevate(float RelativeSpeed)
 
     auto ClampedElevation = FMath::Clamp(RawNewElevation, MinElevationDeg, MaxElevationDeg);
 
-    UE_LOG(LogTemp, Warning, TEXT("Setting Elevation to %f"), ClampedElevation);
     SetRelativeRotation(FRotator(ClampedElevation, 0, 0));
    
 }
