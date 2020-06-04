@@ -29,16 +29,15 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	void AimAt(FVector HitLocation);
 
+private:
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 100000;  // 1000 m/s
-
-private:
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 
 
 };
