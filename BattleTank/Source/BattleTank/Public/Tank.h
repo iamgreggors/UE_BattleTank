@@ -30,7 +30,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankMovementComponent* TankMovementComponent = nullptr;
 
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
