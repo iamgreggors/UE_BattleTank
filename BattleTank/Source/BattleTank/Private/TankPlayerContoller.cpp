@@ -14,16 +14,6 @@ void ATankPlayerContoller::BeginPlay()
 {
     Super::BeginPlay();
 
-    if(GetControlledTank())
-    {
-        UE_LOG(LogTemp, Warning, TEXT("PlayerContoller Begin Play %s"), *GetControlledTank()->GetName());
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Didn't get a Tank!"));
-    }
-    
-
 }
 
 void ATankPlayerContoller::Tick(float DeltaTime)
