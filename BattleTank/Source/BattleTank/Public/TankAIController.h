@@ -20,4 +20,6 @@ class BATTLETANK_API ATankAIController : public AAIController
 
 private:
 
+	float AcceptanceRadius = 3000.f;
+
 };
