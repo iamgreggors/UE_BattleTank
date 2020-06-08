@@ -3,6 +3,7 @@
 #include "TankPlayerContoller.h"
 #include "Engine/World.h"
 #include "Math/Vector2D.h"
+#include "TankAimingComponent.h"
 
 ATank* ATankPlayerContoller::GetControlledTank() const
 {
@@ -13,7 +14,12 @@ ATank* ATankPlayerContoller::GetControlledTank() const
 void ATankPlayerContoller::BeginPlay()
 {
     Super::BeginPlay();
+    auto AimingComponent =  GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 
+    if (ensure(AimingComponent))
+    {
+        FoundAimingComponent(AimingComponent);
+    }
 }
 
 void ATankPlayerContoller::Tick(float DeltaTime)
@@ -26,8 +32,7 @@ void ATankPlayerContoller::Tick(float DeltaTime)
 
 void ATankPlayerContoller::AimTowardCrosshair()
 {
-    if(!GetControlledTank())
-        return;
+    if (!ensure(GetControlledTank())) { return; }
 
     FVector HitLocation; // Out Parameter
        
