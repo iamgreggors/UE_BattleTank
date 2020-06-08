@@ -5,21 +5,10 @@
 #include "Math/Vector2D.h"
 #include "TankAimingComponent.h"
 
-ATank* ATankPlayerContoller::GetControlledTank() const
-{
-    return Cast<ATank>(GetPawn());
-}
-
 
 void ATankPlayerContoller::BeginPlay()
 {
     Super::BeginPlay();
-    auto AimingComponent =  GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-
-    if (ensure(AimingComponent))
-    {
-        FoundAimingComponent(AimingComponent);
-    }
 }
 
 void ATankPlayerContoller::Tick(float DeltaTime)
@@ -32,14 +21,13 @@ void ATankPlayerContoller::Tick(float DeltaTime)
 
 void ATankPlayerContoller::AimTowardCrosshair()
 {
-    if (!ensure(GetControlledTank())) { return; }
-
     FVector HitLocation; // Out Parameter
        
     // Get World Location through Crosshair
     if( GetSightRayHitLocation( HitLocation ) )
     {
-        GetControlledTank()->AimAt(HitLocation);
+        auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+        AimingComponent->AimAt(HitLocation);
     }
 
     return;

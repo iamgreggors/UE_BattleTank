@@ -33,11 +33,16 @@ public:
 	void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 public:	
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
+
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringStatus FiringStatus = EFiringStatus::Aiming;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 100000;  // 1000 m/s
+
 
 private: 
 	UTankBarrel* Barrel = nullptr;
