@@ -75,7 +75,14 @@ void UTankAimingComponent::MoveTurretTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - TurretRotation;
 
-	Turret->Rotate(DeltaRotator.Yaw);  
+	if (DeltaRotator.Yaw < 180)
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
 }
 
 
@@ -117,7 +124,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	{
 		FiringStatus = EFiringStatus::Reloading;
 	}
-	else if (IsBarrelMoving())
+	else if (!IsBarrelMoving())
 	{
 		FiringStatus = EFiringStatus::Aiming;
 	}
@@ -136,7 +143,6 @@ void UTankAimingComponent::BeginPlay()
 
 bool UTankAimingComponent::IsBarrelMoving()
 {
-
 	if (!ensure(Barrel)) { return false; }
 
 	FVector ForwardDirection = Barrel->GetForwardVector();

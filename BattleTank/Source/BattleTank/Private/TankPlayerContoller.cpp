@@ -59,11 +59,11 @@ bool ATankPlayerContoller::GetSightRayHitLocation(FVector& OutHitLocation) const
     // Raytrace along that line
     if (FoundLookDirection)
     {
-        GetLookVectorHitLocation(LookDirection, OutHitLocation);
+        return GetLookVectorHitLocation(LookDirection, OutHitLocation);
     }
     
     // See what we hit
-    return true;
+    return false;
 }
 
 
