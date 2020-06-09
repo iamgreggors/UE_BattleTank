@@ -44,7 +44,7 @@ protected:
 	EFiringStatus FiringStatus = EFiringStatus::Aiming;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LaunchSpeed = 40000;  // 1000 m/s
+	float LaunchSpeed = 40000;  // 400 m/s
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3;
