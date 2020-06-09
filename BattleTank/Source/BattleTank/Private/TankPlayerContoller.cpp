@@ -9,6 +9,12 @@
 void ATankPlayerContoller::BeginPlay()
 {
     Super::BeginPlay();
+
+    if (!GetPawn()) return;
+
+    auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+    if (!ensure(AimingComponent)) { return; }
+    FoundAimingComponent(AimingComponent);
 }
 
 void ATankPlayerContoller::Tick(float DeltaTime)
@@ -22,7 +28,9 @@ void ATankPlayerContoller::Tick(float DeltaTime)
 void ATankPlayerContoller::AimTowardCrosshair()
 {
     FVector HitLocation; // Out Parameter
-       
+    
+    if (!GetPawn()) { return; }
+
     // Get World Location through Crosshair
     if( GetSightRayHitLocation( HitLocation ) )
     {

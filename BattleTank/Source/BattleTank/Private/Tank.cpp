@@ -10,3 +10,4 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = true;
 
 }
+

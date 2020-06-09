@@ -42,17 +42,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 	if(FoundSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 
 		FString OurTankName = GetOwner()->GetName();
 		auto Time = GetWorld()->GetTimeSeconds();
 		
 		MoveBarrelTowards( AimDirection );
 		MoveTurretTowards( AimDirection );
-	}
-	else
-	{
-		
 	}
 
 }
@@ -98,9 +94,7 @@ void UTankAimingComponent::Fire()
 
 	// Spawn a project at the barrel's projectile socket location
 
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-
-	if (isReloaded)
+	if (FiringStatus != EFiringStatus::Reloading)
 	{
 
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
@@ -111,7 +105,42 @@ void UTankAimingComponent::Fire()
 
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
-
 	}
 
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	{
+		FiringStatus = EFiringStatus::Reloading;
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringStatus = EFiringStatus::Aiming;
+	}
+	else
+	{
+		FiringStatus = EFiringStatus::Locked;
+	}
+}
+
+void UTankAimingComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	LastFireTime = FPlatformTime::Seconds();
+}
+
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+
+	if (!ensure(Barrel)) { return false; }
+
+	FVector ForwardDirection = Barrel->GetForwardVector();
+
+	return AimDirection.Equals(ForwardDirection, 0.01f);
+		
 }
