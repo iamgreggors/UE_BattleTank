@@ -43,7 +43,7 @@ public:
 	void Fire();
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
-	int GetAmmoCount();
+	int32 GetAmmoCount();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -59,7 +59,7 @@ protected:
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	int InitialAmmo = 5;
+	int32 AmmoCount = 5;
 
 	
 private: 
@@ -75,5 +75,4 @@ private:
 	bool IsBarrelMoving();
 
 	double LastFireTime = 0.0;
-	int AmmoCount = InitialAmmo;
 };
