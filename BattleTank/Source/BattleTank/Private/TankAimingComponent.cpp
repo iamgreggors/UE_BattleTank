@@ -104,6 +104,9 @@ void UTankAimingComponent::Fire()
 
 	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
 
+	// This shouldn't happen for the player, but the AI Tank will try to fire when empty
+	if (AmmoCount <= 0) { return; }
+
 	// Spawn a project at the barrel's projectile socket location
 
 	if (FiringStatus != EFiringStatus::Reloading)
@@ -117,13 +120,25 @@ void UTankAimingComponent::Fire()
 
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		AmmoCount--;
 	}
 
+}
+
+int UTankAimingComponent::GetAmmoCount()
+{
+	return AmmoCount;
 }
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (AmmoCount <= 0)
+	{
+		FiringStatus = EFiringStatus::Empty;
+		return;
+	}
 
 	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{

@@ -12,7 +12,8 @@ enum class EFiringStatus : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	Empty
 };
 
 
@@ -41,6 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetAmmoCount();
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringStatus FiringStatus = EFiringStatus::Reloading;
@@ -53,6 +57,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int InitialAmmo = 5;
 
 	
 private: 
@@ -68,4 +75,5 @@ private:
 	bool IsBarrelMoving();
 
 	double LastFireTime = 0.0;
+	int AmmoCount = InitialAmmo;
 };
