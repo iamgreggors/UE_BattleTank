@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -35,13 +36,21 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
 	UParticleSystemComponent* ImpactBlast = nullptr;
 
+	UPROPERTY(VisibleAnywhere, Category = "Setup")
+	URadialForceComponent* ExplosionForce = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float ProjecileDestructTimer = 10.f;
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void LaunchProjectile(float Speed);
 
 private:
-	
+	FTimerHandle DestroyTimer;
 
+	void ProjectileDestruct() { this->Destroy(); }
 
 };

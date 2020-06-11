@@ -24,6 +24,9 @@ AProjectile::AProjectile()
 	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ImpactBlast->bAutoActivate = false;
 
+	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion Force Component"));
+	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
 
 }
 
@@ -58,5 +61,10 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 	// Activate Impact Effect
 	ImpactBlast->Activate();
+
+	ExplosionForce->FireImpulse();
+
+
+	GetWorld()->GetTimerManager().SetTimer(DestroyTimer, this, &AProjectile::ProjectileDestruct, ProjecileDestructTimer, false);
 
 }
