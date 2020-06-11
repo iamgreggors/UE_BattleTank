@@ -11,3 +11,35 @@ ATank::ATank()
 
 }
 
+float ATank::TakeDamage(
+	float DamageAmount,
+	struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator,
+	AActor* DamageCauser
+)
+{
+//	Super::TakeDamage(
+		 //DamageAmount,
+		 //DamageEvent,
+		 //EventInstigator,
+		 //DamageCauser
+	//);
+
+	UE_LOG(LogTemp, Warning, TEXT("caused damage: %f"), DamageAmount);
+
+	// Clamp Damage
+	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
+	int32 ClampedDamage = FMath::Clamp(DamagePoints, 0, CurrentHealth);
+	
+	// Apply Damage then clamp result
+	
+	CurrentHealth -= DamagePoints;
+
+	return ClampedDamage;
+}
+
+
+float ATank::GetHealthPercent()
+{
+	return (float)CurrentHealth / (float)StartingHealth;
+}

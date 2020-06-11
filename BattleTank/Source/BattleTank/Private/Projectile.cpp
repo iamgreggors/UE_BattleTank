@@ -2,6 +2,8 @@
 
 
 #include "Projectile.h"
+#include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -63,6 +65,17 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	ImpactBlast->Activate();
 
 	ExplosionForce->FireImpulse();
+
+	// Damage Enemy Tank
+
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		ProjectileDamage,
+		GetActorLocation(),
+		ExplosionForce->Radius, // for consistency
+		UDamageType::StaticClass(),
+		TArray<AActor*>() // damage all actors
+		);
 
 
 	GetWorld()->GetTimerManager().SetTimer(DestroyTimer, this, &AProjectile::ProjectileDestruct, ProjecileDestructTimer, false);
