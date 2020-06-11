@@ -35,6 +35,12 @@ float ATank::TakeDamage(
 	
 	CurrentHealth -= DamagePoints;
 
+	if (CurrentHealth <= 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Tank Died: %s"), *GetName());
+		OnTankDeath.Broadcast();
+	}
+
 	return ClampedDamage;
 }
 

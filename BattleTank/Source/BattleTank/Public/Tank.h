@@ -10,6 +10,9 @@
 class UTankTurret;
 class AProjectile;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDeath);
+
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -30,13 +33,10 @@ public:
 		AActor* DamageCauser
 	) override;
 
-protected:
-	
-
-public:	
-
 	UFUNCTION(BlueprintPure, Category = "Firing")
 	float GetHealthPercent();
+
+	FTankDeath OnTankDeath;
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")

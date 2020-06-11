@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "Math/Vector2D.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 
 void ATankPlayerContoller::BeginPlay()
@@ -99,4 +100,25 @@ bool ATankPlayerContoller::GetLookVectorHitLocation(FVector LookDirection, FVect
     HitLocation = FVector(0);
     return false;
     
+}
+
+
+void ATankPlayerContoller::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+
+    if (InPawn)
+    {
+        auto PossessedTank = Cast<ATank>(InPawn);
+
+        if (!ensure(PossessedTank)) { return; }
+
+        // Subscribe our local method to tank's death event
+        PossessedTank->OnTankDeath.AddUniqueDynamic(this, &ATankPlayerContoller::OnTankDeath);
+    }
+}
+
+void ATankPlayerContoller::OnTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Tank Player Controller responding to OnDeath Broadcast"));
 }

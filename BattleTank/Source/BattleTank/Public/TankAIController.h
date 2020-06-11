@@ -17,11 +17,17 @@ class BATTLETANK_API ATankAIController : public AAIController
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
+public: 
+	UFUNCTION()
+	void OnTankDeath();
+
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float AcceptanceRadius = 8000.f;
 
 
-private:
 
+private:
+	virtual void SetPawn(APawn* InPawn) override;
 };

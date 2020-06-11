@@ -34,10 +34,14 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
+	UFUNCTION()
+	void OnTankDeath();
+
 private:
 	void AimTowardCrosshair();
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+	virtual void SetPawn(APawn* InPawn) override;
 
 };
