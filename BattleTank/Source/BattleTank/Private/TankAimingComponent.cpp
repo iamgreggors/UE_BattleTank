@@ -54,7 +54,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 }
 
 
-void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
+void UTankAimingComponent::MoveBarrelTowards(FVector TargetAimDirection)
 {
 	if (!ensure(Barrel)) { return; }
 	// Compute current barrel rotation and aim direction
@@ -66,7 +66,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 }
 
 
-void UTankAimingComponent::MoveTurretTowards(FVector AimDirection)
+void UTankAimingComponent::MoveTurretTowards(FVector TargetAimDirection)
 {
 	if (!ensure(Turret)) { return; }
 

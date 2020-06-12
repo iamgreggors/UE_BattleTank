@@ -24,6 +24,7 @@ public:
 
 	virtual void BeginPlay() override {
 		Super::BeginPlay();
+		CurrentHealth = StartingHealth;
 	}
 
 	virtual float TakeDamage(

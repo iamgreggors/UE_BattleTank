@@ -90,7 +90,7 @@ bool ATankPlayerContoller::GetLookVectorHitLocation(FVector LookDirection, FVect
             HitResult,
             StartLoc,
             EndLoc,
-            ECollisionChannel::ECC_Visibility)
+            ECollisionChannel::ECC_Camera)
       )
     {
         // Set HitLocation 
@@ -121,4 +121,6 @@ void ATankPlayerContoller::SetPawn(APawn* InPawn)
 void ATankPlayerContoller::OnTankDeath()
 {
     UE_LOG(LogTemp, Warning, TEXT("Tank Player Controller responding to OnDeath Broadcast"));
+
+    StartSpectatingOnly();
 }
