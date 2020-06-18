@@ -7,8 +7,7 @@
 #include "Tank.generated.h"
 
 // Forward Declaration
-class UTankTurret;
-class AProjectile;
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDeath);
 
