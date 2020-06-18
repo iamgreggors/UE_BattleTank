@@ -15,6 +15,8 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
+
+	UE_LOG(LogTemp, Warning, TEXT("Intend Move Forward Called with %f"), Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -23,6 +25,9 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw); 
+
+	UE_LOG(LogTemp, Warning, TEXT("Intend Turn Right Called with %f"), Throw);
+
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)

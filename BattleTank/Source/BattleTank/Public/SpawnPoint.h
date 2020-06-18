@@ -24,9 +24,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	AActor* GetSpawnedActor() const { return SpawnedActor; }
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AActor> SpawnClass;
 
+	UPROPERTY()
+	AActor* SpawnedActor;
 		
 };
