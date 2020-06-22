@@ -37,7 +37,7 @@ void UTankTrack::DriveTrack(float Throttle)
 
 	for (ASprungWheel* Wheel : Wheels)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Applying force to wheel %f"), ForcePerWheel);
+		//UE_LOG(LogTemp, Warning, TEXT("Applying force to wheel %f"), ForcePerWheel);
 
 		Wheel->AddDrivingForce(ForcePerWheel);
 	}
